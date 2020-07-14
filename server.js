@@ -1,7 +1,16 @@
 const express = require('express')
-
+const connectDB = require('./config/db')
 const app = express()
 
+
+
+//Connect DB
+
+connectDB()
+
+
+//Init Middleware
+app.use(express.json({extended:true}))
 
 app.get('/',(req,res) => {
     res.json({msg: 'my contacts'})
