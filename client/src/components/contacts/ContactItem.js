@@ -10,6 +10,7 @@ import ContactContext from '../../context/contact/ContactContext'
 
     const onDelete = () => {
         contactContext.deleteContact(id)
+        contactContext.clearCurrent()
     }
 
     return (
@@ -32,7 +33,7 @@ import ContactContext from '../../context/contact/ContactContext'
             )}
            </ul>
            <p>
-               <button className="btn btn-dark btn-sm">Edit</button>
+               <button className="btn btn-dark btn-sm" onClick={() => contactContext.setCurrent(contact)}>Edit</button>
                <button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
            </p>
         </div>
