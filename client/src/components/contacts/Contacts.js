@@ -6,11 +6,12 @@ import ContactItem from './ContactItem'
 const Contacts = () => {
   
 
-    const {contacts} = useContext(ContactContext)
+    const {contacts,filtered} = useContext(ContactContext)
 
     return (
-        <>
-          {contacts.map(contact => <ContactItem key={contact.id} contact={contact} />)  }
+        <> 
+          {filtered ? filtered.map(fil => <ContactItem key={fil.id} contact={fil} />) : 
+          contacts.map(contact => <ContactItem key={contact.id} contact={contact} />) } 
         </>
     )
 }
