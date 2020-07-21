@@ -20,7 +20,7 @@ const AuthState = props => {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
         loading: true,
-        user: null,
+        user: {},
         error: null
     }
 
@@ -37,7 +37,7 @@ const AuthState = props => {
        try {
            const res = await axios.get('/api/auth')
            dispatch({
-               type: USER_LOADED,payload: res.data
+               type: USER_LOADED,payload: res.data.user
             })
        } catch (err) {
            dispatch({
@@ -93,7 +93,7 @@ const AuthState = props => {
 }
    // Logout
    const logout = () => {
-    console.log('logout')
+    dispatch({type: LOGOUT})
 }
    // Clear Errors
    const clearErrors = () => {
