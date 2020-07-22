@@ -1,18 +1,21 @@
 # My Contacts
 
-
-**My-contacts** is a conatct management application for each user built with the the MERN stack (MongoDB - ExpressJs - ReactJs - NodeJs)
+**My-contacts** is a contact management application for each authenticated user built with the the MERN stack (MongoDB - ExpressJs - ReactJs - NodeJs)
 
 # How to serve the app:
-## The ExpressJs backend api:
+
 To install dependencies:
 ```bash
 npm install
 ```
-To spin up the backend server (on port 5000):
+
+This application has the concurrently dev dependency so you can serve both the react & express with :
+
 ```bash
-npm run server
+npm run dev
 ```
 
-## The ReactJs Application:
+## The Application Link:
+
+https://lit-wave-72766.herokuapp.com/
 
