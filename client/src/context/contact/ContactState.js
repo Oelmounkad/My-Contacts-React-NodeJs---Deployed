@@ -10,7 +10,9 @@ import {
     UPDATE_CONTACT,
     FILTER_CONTACTS,
     CONTACT_ERROR,
-    CLEAR_FILTER
+    CLEAR_FILTER,
+    GET_CONTACTS,
+    CLEAR_CONTACTS
 } from '../types'
 
 const ContactState = props => {
@@ -24,6 +26,28 @@ const ContactState = props => {
    const [state, dispatch] = useReducer(ContactReducer, initialState)
 
    // Action :
+
+
+    // Get contacts
+
+    const getContacts = async () => {
+
+        try {
+            const res = await axios.get('/api/contacts') 
+            dispatch({type: GET_CONTACTS, payload: res.data})
+        } catch (err) {
+            dispatch({type: CONTACT_ERROR, payload: err.response.msg })
+        }
+        
+        
+    }
+
+    // Clear contacts
+    
+    const clearContacts = () => {
+        dispatch({type: CLEAR_CONTACTS })
+    }
+    
 
    // Add Contact
 const addContact = async contact => {
@@ -42,8 +66,34 @@ const addContact = async contact => {
     
 }
    // Delete Contact
-   const deleteContact = id => {
+   const deleteContact = async id => {
+
+    try {
+        const res = await axios.delete(`/api/contacts/${id}`,) 
+        dispatch({type: DELETE_CONTACT, payload: id})
+    } catch (err) {
+        dispatch({type: CONTACT_ERROR, payload: err.response.msg })
+    }
+
     dispatch({type: DELETE_CONTACT, payload: id})
+}
+
+  //Update Contact
+  const updateContact = async contact => {
+    const config = {
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    }
+    try {
+        const res = await axios.put(`/api/contacts/${contact._id}`,contact,config) 
+
+        dispatch({type: UPDATE_CONTACT, payload: res.data})
+        
+    } catch (err) {
+        dispatch({type: CONTACT_ERROR, payload: err.response.msg })
+    }
+    dispatch({type: UPDATE_CONTACT , payload: contact })
 }
    // Set Current Contact
 
@@ -56,10 +106,6 @@ const addContact = async contact => {
     dispatch({type: CLEAR_CURRENT })
 }
 
-   //Update Contact
-   const updateContact = contact => {
-    dispatch({type: UPDATE_CONTACT , payload: contact })
-}
    // Filter Contact
 
    const filterContacts = text => {
@@ -80,7 +126,9 @@ const addContact = async contact => {
            error: state.error,
            filterContacts,
            clearFilter,
+           getContacts,
            addContact,
+           clearContacts,
            deleteContact,
            updateContact,
            setCurrent,
